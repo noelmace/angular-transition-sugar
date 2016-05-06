@@ -1,0 +1,19 @@
+{
+  "name": "angularjs-decorators",
+  "version": "0.0.1",
+  "description": "Angular 2 inspired decorators for angularjs",
+  "main": "src",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noelmace/angularjs-decorators.git"
+  },
+  "author": "Noël Macé <contact@noelmace.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/noelmace/angularjs-decorators/issues"
+  },
+  "homepage": "https://github.com/noelmace/angularjs-decorators#readme"
+}
