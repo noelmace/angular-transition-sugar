@@ -1,14 +1,5 @@
 import angular from 'angular';
-
-let toBinding = (params, type) => {
-    let bindings = {};
-    if (params) {
-        params.forEach((id) => {
-            bindings[id] = type;
-        });
-    }
-    return bindings;
-};
+import { toBinding } from './utils/binding';
 
 let transformConfig = (config, ctrl) => {
     let finalConfig = {
@@ -19,33 +10,20 @@ let transformConfig = (config, ctrl) => {
         }
     };
 
-    if (config.templateUrl) {
-        finalConfig.config.templateUrl = config.templateUrl;
-    } else if (config.template) {
-        finalConfig.config.template = config.template;
-    }
-
     angular.extend(finalConfig.config.bindings, toBinding(config.inputs, '<'));
     angular.extend(finalConfig.config.bindings, toBinding(config.outputs, '&'));
-    angular.extend(finalConfig.config.bindings, toBinding(config.bindings, '='));
-    angular.extend(finalConfig.config.bindings, toBinding(config.properties, '@'));
+    angular.extend(finalConfig.config.bindings, config.bindings);
 
-    if (config.controllerAs) {
-        finalConfig.config.controllerAs = config.ng1.controllerAs;
-    }
+    delete config.selector;
+    delete config.inputs;
+    delete config.outpus;
 
-    if (config.transclude) {
-        finalConfig.config.transclude = !!config.ng1.transclude;
-    }
-
-    if (config.require) {
-        finalConfig.config.require = config.require;
-    }
+    angular.merge(finalConfig.config, config);
 
     return finalConfig;
 };
 
-export default function Component(config) {
+export function Component(config) {
     return function decorator(ctrl) {
         let transformedConfig = transformConfig(config, ctrl);
         ctrl.$componentConfig = transformedConfig.config;
