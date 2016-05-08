@@ -1,9 +1,11 @@
 import angular from 'angular';
 import { toBinding } from './utils/binding';
 
+// TODO : factoring with Directive
 let transformConfig = (config, ctrl) => {
     let finalConfig = {
         selector: config.selector,
+        name: dashToCamel(config.selector),
         config: {
             bindings: {},
             controller: ctrl
@@ -16,7 +18,18 @@ let transformConfig = (config, ctrl) => {
 
     delete config.selector;
     delete config.inputs;
-    delete config.outpus;
+    delete config.outputs;
+
+    if (config.directives || config.providers) {
+        finalConfig.dependencies = {};
+    }
+    if (config.directives) {
+        finalConfig.dependencies.directive = config.directives;
+    }
+
+    if (config.providers) {
+        finalConfig.dependencies.providers = config.providers;
+    }
 
     angular.merge(finalConfig.config, config);
 
@@ -25,8 +38,6 @@ let transformConfig = (config, ctrl) => {
 
 export function Component(config) {
     return function decorator(ctrl) {
-        let transformedConfig = transformConfig(config, ctrl);
-        ctrl.$componentConfig = transformedConfig.config;
-        ctrl.$selector = transformedConfig.selector;
+        ctrl.$kissDecoratorsConfig = transformConfig(config, ctrl);
     }
 }

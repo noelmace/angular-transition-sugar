@@ -1,9 +1,12 @@
 import angular from 'angular';
 import toBinding from 'utils/binding';
+import { dashToCamel } from 'utils/strings';
 
+// TODO : factoring with Component
 let transformConfig = (config, ctrl) => {
     let finalConfig = {
         selector: config.selector,
+        name: dashToCamel(config.selector),
         config: {
             controller: ctrl
         }
@@ -33,7 +36,7 @@ let transformConfig = (config, ctrl) => {
 
     delete config.selector;
     delete config.inputs;
-    delete config.outpus;
+    delete config.outputs;
 
     angular.merge(finalConfig.config, config);
 
@@ -42,11 +45,6 @@ let transformConfig = (config, ctrl) => {
 
 export function Directive(config) {
     return function decorator(ctrl) {
-        let transformedConfig = transformConfig(config, ctrl);
-        ctrl.$directiveConfig = transformedConfig.config;
-        ctrl.$selector = transformedConfig.selector;
-        if (transformedConfig.directives) {
-            ctrl.$dependencies = transformedConfig.directives;
-        }
+        ctrl.$kissDecoratorsConfig = transformConfig(config, ctrl);
     }
 }
