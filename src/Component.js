@@ -7,15 +7,15 @@ let transformConfig = (config, ctrl) => {
     let finalConfig = {
         selector: config.selector,
         name: dashToCamel(config.selector),
-        config: {
+        componentConfig: {
             bindings: {},
             controller: ctrl
         }
     };
 
-    angular.extend(finalConfig.config.bindings, toBinding(config.inputs, '<'));
-    angular.extend(finalConfig.config.bindings, toBinding(config.outputs, '&'));
-    angular.extend(finalConfig.config.bindings, config.bindings);
+    angular.extend(finalConfig.componentConfig.bindings, toBinding(config.inputs, '<'));
+    angular.extend(finalConfig.componentConfig.bindings, toBinding(config.outputs, '&'));
+    angular.extend(finalConfig.componentConfig.bindings, config.bindings);
 
     delete config.selector;
     delete config.inputs;
@@ -32,7 +32,7 @@ let transformConfig = (config, ctrl) => {
         finalConfig.dependencies.providers = config.providers;
     }
 
-    angular.merge(finalConfig.config, config);
+    angular.merge(finalConfig.componentConfig, config);
 
     return finalConfig;
 };

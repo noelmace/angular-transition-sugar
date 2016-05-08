@@ -7,21 +7,21 @@ let transformConfig = (config, ctrl) => {
     let finalConfig = {
         selector: config.selector,
         name: dashToCamel(config.selector),
-        config: {
+        directiveConfig: {
             controller: ctrl
         }
     };
 
     if (config.inputs || config.outputs || config.bindToController) {
-        finalConfig.config.bindToController = {};
+        finalConfig.directiveConfig.bindToController = {};
 
-        angular.extend(finalConfig.config.bindings, toBinding(config.inputs, '<'));
-        angular.extend(finalConfig.config.bindings, toBinding(config.outputs, '&'));
-        angular.extend(finalConfig.config.bindings, config.bindings);
+        angular.extend(finalConfig.directiveConfig.bindings, toBinding(config.inputs, '<'));
+        angular.extend(finalConfig.directiveConfig.bindings, toBinding(config.outputs, '&'));
+        angular.extend(finalConfig.directiveConfig.bindings, config.bindings);
     }
 
-    finalConfig.config.restrict = config.restrict || 'A';
-    finalConfig.config.controllerAs = config.controllerAs || '$ctrl';
+    finalConfig.directiveConfig.restrict = config.restrict || 'A';
+    finalConfig.directiveConfig.controllerAs = config.controllerAs || '$ctrl';
 
     if (config.directives || config.providers) {
         finalConfig.dependencies = {};
@@ -38,7 +38,7 @@ let transformConfig = (config, ctrl) => {
     delete config.inputs;
     delete config.outputs;
 
-    angular.merge(finalConfig.config, config);
+    angular.merge(finalConfig.directiveConfig, config);
 
     return finalConfig;
 };
