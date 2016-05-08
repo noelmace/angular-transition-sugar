@@ -1,6 +1,6 @@
 {
     "name": "angularjs-decorators",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Angular 2 inspired decorators for angularjs",
     "main": "dist/Component.js",
     "scripts": {
