@@ -5,7 +5,9 @@
     "main": "dist/Component.js",
     "scripts": {
         "build": "babel src --out-dir dist",
-        "prepublish": "npm run build"
+        "prepublish": "npm run build",
+        "version": "npm run build && git add --force dist/",
+        "postversion": "git rm -r dist/ && git commit -m 'CLEAN AFTER RELEASE'"
     },
     "repository": {
         "type": "git",
