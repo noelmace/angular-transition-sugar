@@ -7,7 +7,8 @@
     "build": "babel src --out-dir dist",
     "prepublish": "npm run build",
     "version": "npm run build && git add --force dist/",
-    "postversion": "git rm -r dist/ && git commit -m 'CLEAN AFTER RELEASE'"
+    "postversion": "git rm -r dist/ && git commit -m 'CLEAN AFTER RELEASE'",
+    "link": "npm run build && jspm link github:noelmace/angularjs-decorators@dev -y"
   },
   "repository": {
     "type": "git",
