@@ -47,6 +47,8 @@ export function Routes(routes) {
 
         appModule.config(RoutesUtil.generateStateConfig(states));
         appModule.config(RoutesUtil.generateFutureStateConfig(futureStates));
-        appModule.config(RoutesUtil.generateDefaultStateConfig(defaultStateUrl));
+        if (appModule.$isTheMainModule === true) {
+            appModule.config(RoutesUtil.generateDefaultStateConfig(defaultStateUrl));
+        }
     }
 }
