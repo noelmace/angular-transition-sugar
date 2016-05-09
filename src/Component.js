@@ -25,14 +25,14 @@ let transformConfig = (config, ctrl) => {
         finalConfig.dependencies = {};
     }
     if (config.directives) {
-        finalConfig.dependencies.directive = config.directives;
+        finalConfig.dependencies.directives = config.directives;
     }
 
     if (config.providers) {
         finalConfig.dependencies.providers = config.providers;
     }
 
-    angular.merge(finalConfig.componentConfig, config);
+    angular.extend(finalConfig.componentConfig, config);
 
     return finalConfig;
 };

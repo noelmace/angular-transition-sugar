@@ -16,17 +16,21 @@ export function Module({ name, dependencies, configs, main, debug, html5mode }) 
         }
 
         if (component.$kissDecoratorsConfig.dependencies) {
-            component.$kissDecoratorsConfig.dependencies.directives.forEach((directive) => {
-                if (angular.isDefined(directive.$kissDecoratorsConfig.componentConfig)) {
-                    appModule.component(directive.$kissDecoratorsConfig.name, directive.$kissDecoratorsConfig.componentConfig);
-                } else if (angular.isDefined(directive.$kissDecoratorsConfig.directiveConfig)) {
-                    appModule.directive(directive.$kissDecoratorsConfig.name, directive.$kissDecoratorsConfig.directiveConfig);
-                }
-            });
-
-            component.$kissDecoratorsConfig.dependencies.services.forEach((service) => {
-                appModule.service(service.$kissDecoratorsConfig.injectableId, service);
-            });
+            if (component.$kissDecoratorsConfig.dependencies.directives) {
+                component.$kissDecoratorsConfig.dependencies.directives.forEach((directive) => {
+                    if (angular.isDefined(directive.$kissDecoratorsConfig.componentConfig)) {
+                        appModule.component(directive.$kissDecoratorsConfig.name, directive.$kissDecoratorsConfig.componentConfig);
+                    } else if (angular.isDefined(directive.$kissDecoratorsConfig.directiveConfig)) {
+                        appModule.directive(directive.$kissDecoratorsConfig.name, directive.$kissDecoratorsConfig.directiveConfig);
+                    }
+                });
+            }
+            
+            if (component.$kissDecoratorsConfig.dependencies.services) {
+                component.$kissDecoratorsConfig.dependencies.services.forEach((service) => {
+                    appModule.service(service.$kissDecoratorsConfig.injectableId, service);
+                });
+            }
         }
 
         if (main) {

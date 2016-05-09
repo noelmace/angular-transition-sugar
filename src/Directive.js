@@ -38,7 +38,7 @@ let transformConfig = (config, ctrl) => {
     delete config.inputs;
     delete config.outputs;
 
-    angular.merge(finalConfig.directiveConfig, config);
+    angular.extend(finalConfig.directiveConfig, config);
 
     return finalConfig;
 };
