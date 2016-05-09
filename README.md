@@ -10,7 +10,7 @@ Angular 2 inspired decorators for angularjs.
 
 ``jspm i decorators=github:noelmace/angularjs-decorators``
 
-### Component decorator
+### Component
 
 This decorator use 3 new parameters :
 - selector : the 'name' / selector of the component
@@ -62,13 +62,25 @@ angular.module('myModule', [])
 .component(MyComponent.$selector, MyComponent.$componentConfig);
 ```
 
-### Directive decorator
+### Directive
 
 This decorator behave like ``@Component``, but for "attribute directives".
 
 It simply put the provided configuration object in $directiveConfig, but also offer different default values than the default angularjs behaviour, following angular best practices for upgrade to Angular 2 :
 - default ``restrict`` value is 'A'
 - default ``controllerAs`` value is '$ctrl'
+
+### Module
+
+Define an angularjs module on a component.
+
+**Doc TBD**
+
+### Routes
+
+Define component oriented, "``@angular/router`` style" routes via angular-ui-router + permit lazy loading.
+
+**Doc TBD**
 
 ### resources
 
