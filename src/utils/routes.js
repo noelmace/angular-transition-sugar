@@ -70,7 +70,16 @@ export function generateFutureStateConfig(params) {
     return futureStateConfig;
 }
 
-lazyLoadConfig.$inject = ['$futureStateProvider'];
-export function lazyLoadConfig($futureStateProvider) {
+export function generateDefaultStateConfig(defaultStateUrl) {
+    defaultStateConfig.$inject = ['$urlRouterProvider'];
+    function defaultStateConfig($urlRouterProvider) {
+        $urlRouterProvider.otherwise(defaultStateUrl);
+    }
+    return defaultStateConfig;
+}
+
+lazyLoadConfig.$inject = ['$futureStateProvider', '$httpProvider'];
+export function lazyLoadConfig($futureStateProvider, $httpProvider) {
+    $httpProvider.useApplyAsync(true);
     $futureStateProvider.stateFactory('lazy', lazyLoadStateFactory);
 }

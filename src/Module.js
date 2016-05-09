@@ -1,6 +1,9 @@
 import angular from 'angular';
 
-export function Module({ name, dependencies, configs }) {
+import { lazyLoadConfig } from './utils/routes';
+import * as MainModuleUtil from './utils/mainModule';
+
+export function Module({ name, dependencies, configs, main, debug, html5mode }) {
     return function decorator(component) {
         let appModule = angular.module(name, dependencies);
 
@@ -24,6 +27,13 @@ export function Module({ name, dependencies, configs }) {
             component.$kissDecoratorsConfig.dependencies.services.forEach((service) => {
                 appModule.service(service.$kissDecoratorsConfig.injectableId, service);
             });
+        }
+
+        if (main) {
+            appModule.config(lazyLoadConfig);
+            appModule.config(MainModuleUtil.generateDebugConfig(!!debug));
+            appModule.config(MainModuleUtil.generateHtml5ModeConfig(html5mode));
+            appModule.$isTheMainModule = true;
         }
 
         component.$ngmodule = appModule;

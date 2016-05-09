@@ -10,11 +10,22 @@ export function Routes(routes) {
     return function decorator(component) {
         let appModule = component.$ngmodule,
             states = [],
-            futureStates = [];
+            futureStates = [],
+            defaultStateUrl = false;
 
         routes.forEach((config) => {
             if (!angular.isString(config.path)) {
                 throw new Error(`incorrect route configuration ${config}`);
+            }
+            if (appModule.$isTheMainModule === true) {
+                if (!defaultStateUrl) {
+                    defaultStateUrl = config.path;
+                } else if (config.useAsDefault) {
+                    defaultStateUrl = config.path;
+                }
+            }
+            if (config.useAsDefault) {
+                defaultStateUrl = config.path;
             }
             if (config.lazy === true && angular.isString(config.component)) {
                 if (!angular.isString(config.name)) {
@@ -36,5 +47,6 @@ export function Routes(routes) {
 
         appModule.config(RoutesUtil.generateStateConfig(states));
         appModule.config(RoutesUtil.generateFutureStateConfig(futureStates));
+        appModule.config(RoutesUtil.generateDefaultStateConfig(defaultStateUrl));
     }
 }
