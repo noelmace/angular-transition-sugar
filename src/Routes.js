@@ -3,9 +3,9 @@ import angular from 'angular';
 export function Routes(routes) {
 
     if (!angular.isArray(routes)) {
-        thow new Error('the Routes decorators require an array argument !');
+        throw new Error('the Routes decorators require an array argument !');
     }
-    
+
     return function decorator(component) {
         let appModule = component.$ngmodule;
 

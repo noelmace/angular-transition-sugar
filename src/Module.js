@@ -7,12 +7,8 @@ export function Module({ name, dependencies, configs }) {
         appModule.component(component.$kissDecoratorsConfig.name, component.$kissDecoratorsConfig.componentConfig);
 
         if (angular.isArray(configs)) {
-            configs.some((config) => {
-                if (angular.isString(config) || angular.isFunction(config)) {
-                    return true;
-                }
+            configs.forEach((config) => {
                 appModule.config(config);
-                return false;
             });
         }
 
