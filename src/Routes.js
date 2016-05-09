@@ -1,4 +1,5 @@
 import angular from 'angular';
+import * as RoutesUtil from './utils/routes';
 
 export function Routes(routes) {
 
@@ -7,48 +8,33 @@ export function Routes(routes) {
     }
 
     return function decorator(component) {
-        let appModule = component.$ngmodule;
+        let appModule = component.$ngmodule,
+            states = [],
+            futureStates = [];
 
-        let params = routes.map((config) => {
-            let paramObj = {
-                name: config.name || config.component.$kissDecoratorsConfig.name,
-                config: {
-                    url: config.path,
-                    template: config.template || `
-                        <${config.component.$kissDecoratorsConfig.selector}>
-                        </${config.component.$kissDecoratorsConfig.selector}>
-                    `
+        routes.forEach((config) => {
+            if (!angular.isString(config.path)) {
+                throw new Error(`incorrect route configuration ${config}`);
+            }
+            if (config.lazy === true && angular.isString(config.component)) {
+                if (!angular.isString(config.name)) {
+                    throw new Error(`incorrect route configuration ${config}`);
                 }
-            };
 
-            if (config.parent) {
-                paramObj.config.parent = parent;
+                let futureState = config;
+                futureState.stateName = futureState.name;
+                delete futureState.name;
+                futureState.url = futureState.path;
+                delete futureState.path;
+                futureState.type = 'lazy';
+
+                futureStates.push(futureState);
+            } else {
+                states.push(RoutesUtil.transformStateDefinition(config));
             }
-
-            if (angular.isDefined(config.abstract)) {
-                paramObj.config.abstract = !!config.abstract;
-            }
-
-            if (config.data) {
-                paramObj.config.data = config.data;
-            }
-
-            if (config.resolve) {
-                paramObj.config.resolve = config.resolve;
-            }
-
-            return paramObj;
         });
 
-
-        RouteConfig.$inject = ['$stateProvider'];
-
-        function RouteConfig($stateProvider) {
-            params.forEach((definition) => {
-                $stateProvider.state(definition.name, definition.config);
-            });
-        }
-
-        appModule.config(RouteConfig);
+        appModule.config(RoutesUtil.generateStateConfig(states));
+        appModule.config(RoutesUtil.generateFutureStateConfig(futureStates));
     }
 }
