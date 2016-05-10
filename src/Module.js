@@ -2,7 +2,6 @@ import angular from 'angular';
 
 import { lazyLoadConfig } from './utils/routes';
 import * as MainModuleUtil from './utils/mainModule';
-import * as TemplateUtil from './utils/templates';
 
 let addTemplateModule = (appModule, templateUrl, templatesDependencies) => {
     if (templatesDependencies && templateUrl) {
@@ -30,8 +29,8 @@ export function Module({ name, dependencies = [], configs = [], main = false, de
                 });
             }
 
-            if (component.$kissDecoratorsConfig.dependencies.services) {
-                component.$kissDecoratorsConfig.dependencies.services.forEach((service) => {
+            if (component.$kissDecoratorsConfig.dependencies.providers) {
+                component.$kissDecoratorsConfig.dependencies.providers.forEach((service) => {
                     appModule.service(service.$kissDecoratorsConfig.injectableId, service);
                 });
             }
