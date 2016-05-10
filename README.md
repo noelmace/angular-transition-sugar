@@ -14,6 +14,7 @@ This project require :
 * babeljs (with polyfill and decorators support) or typescript
 * SystemJS
 * Angularjs 1.5+
+* (for IE9+ compatibility) a function.name polyfill (babel-polyfill do the trick, thanks to core-js es6.function.name)
 
 We recommend the use of jspm for dependencies management.
 
@@ -190,3 +191,7 @@ This decorator has no parameters.
 ### resources
 
 You can find usage examples in [sdn-angularjs-seed](https://github.com/Sedona-Solutions/sdn-angularjs-seed);
+
+### browser compatibility
+
+A priori, the lib should be compatible with all modern browsers, including IE9+ (via polyfill). However, we haven't run full tests yet. We only can ensure you that it's compatible IE10+, Chrome 50+ and Firefox 45+. Please, open an issue if you find any bug on other browsers.
