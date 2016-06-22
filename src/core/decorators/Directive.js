@@ -1,6 +1,6 @@
 import angular from 'angular';
-import toBinding from 'utils/binding';
-import { dashToCamel } from 'utils/strings';
+import toBinding from '../utils/binding';
+import { dashToCamel } from '../utils/strings';
 
 // TODO : factoring with Component
 let transformConfig = (config, ctrl) => {
