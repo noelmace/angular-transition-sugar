@@ -1,5 +1,5 @@
 import angular from 'angular';
-import * as RoutesUtil from './utils/routes';
+import * as RoutesUtil from '../utils/routes';
 
 export function Routes(routes) {
 

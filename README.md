@@ -1,12 +1,41 @@
-# angularjs-decorators
+# NG2 Syntax
 
-Angular 2 inspired decorators for angularjs.
+(*Nearly*) **Production ready Angular 2 syntax for angularjs.**
 
 *This is a Work In Progress ! Please, do not hesitate to report bugs or feature requests.*
 
 ## install
 
-``jspm i decorators=github:noelmace/angularjs-decorators``
+``jspm i ng2-syntax=github:noelmace/ng2-syntax``
+
+### SystemJS Configuration
+
+#### With Bundle (HTTP/1)
+
+If you want to use the bundle, you just have to add this values to your systemjs configuration file :
+
+```javascript
+{
+    bundles: {
+        "ng2-syntax": [
+            "ng2-syntax/core",
+            "ng2-syntax/platform-browser-dynamic"
+        ]
+    }
+}
+```
+
+#### Without Bundle (HTTP/2)
+
+If you DON'T want to use the bundle, add this to your configuration :
+
+```javascript
+{
+    map: {
+        "ng2-syntax": "ng2-syntax/all"
+    }
+}
+```
 
 ## dependencies
 
@@ -68,8 +97,8 @@ Of course, the decorated class is used as the component controller.
 
 #### Example
 
-```
-import Component from 'decorators/Component';
+```javascript
+import { Component } from 'ng2-syntax/core';
 import template from './my-component.component.tpl';
 
 @Component({
@@ -87,7 +116,7 @@ import template from './my-component.component.tpl';
     templateUrl: template.name,
     ...
 })
-export default cless MyComponent {
+export default class MyComponent {
 
     constructor() {
 
@@ -163,7 +192,7 @@ Define component oriented, "``@angular/router`` style" routes via angular-ui-rou
 
 #### Parameters
 
-- name : state name (optionnal - the component name is used by default)
+- name : state name (optional - the component name is used by default)
 - component :
     - Component object, used to define the state template
     - or es6 import string reference to the component definition, for lazy loading
