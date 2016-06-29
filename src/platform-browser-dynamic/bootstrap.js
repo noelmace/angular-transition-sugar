@@ -1,5 +1,3 @@
-import angular from 'angular';
-
 export let bootstrap = (component) => {
 
     angular.element(document).ready(() => {

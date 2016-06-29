@@ -1,5 +1,4 @@
-import angular from 'angular';
-import { upperToLowerCamel } from '../utils/strings';
+import { upperToLowerCamel } from '../../utils/strings';
 
 export function Injectable(config) {
     return function decorator(ctrl) {

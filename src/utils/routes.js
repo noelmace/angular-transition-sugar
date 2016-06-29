@@ -1,5 +1,3 @@
-import angular from 'angular';
-
 lazyLoadStateFactory.$inject = ['futureState', '$ocLazyLoad'];
 export function lazyLoadStateFactory(futureState, $ocLazyLoad) {
     return System.import(futureState.component).then((loaded) => {
