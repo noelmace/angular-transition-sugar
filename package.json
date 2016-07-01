@@ -1,7 +1,7 @@
 {
-  "name": "angularjs-decorators",
+  "name": "angular-transition-sugar",
   "version": "0.3.0",
-  "description": "Angular 2 inspired decorators for angularjs",
+  "description": "Simple AngularJS extensions to facilitate transition to Angular",
   "main": "dist/Component.js",
   "scripts": {
     "build": "rimraf dist && babel src --out-dir dist",
