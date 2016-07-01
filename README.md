@@ -1,7 +1,7 @@
 angular-transition-sugar
 ============================
 
-Simple extensions to AngularJS to assist in the transition to Angular 2.
+Simple AngularJS extensions to facilitate transition to Angular.
 
 The goal of this project is to provide a [KISS](https://en.wikipedia.org/wiki/KISS_principle) and ready for production
 alternative to ng-forward.
