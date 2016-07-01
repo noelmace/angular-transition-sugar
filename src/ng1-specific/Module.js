@@ -1,7 +1,5 @@
-import angular from 'angular';
-
-import { lazyLoadConfig } from './utils/routes';
-import * as MainModuleUtil from './utils/mainModule';
+import { lazyLoadConfig } from '../component-router/routes-util';
+import * as MainModuleUtil from './mainModule';
 
 let addTemplateModule = (appModule, templateUrl, templatesDependencies) => {
     if (templatesDependencies && templateUrl) {

@@ -1,6 +1,11 @@
-import angular from 'angular';
-import * as RoutesUtil from './utils/routes';
+import * as RoutesUtil from './routes-util';
 
+/**
+ * @deprecated
+ * @param routes routes configuration object
+ * @returns {decorator}
+ * @constructor
+ */
 export function Routes(routes) {
 
     if (!angular.isArray(routes)) {
@@ -14,7 +19,7 @@ export function Routes(routes) {
             defaultStateUrl = false;
 
         routes.forEach((config) => {
-            if (!angular.isString(config.path)) {
+            if (!!config.path && !angular.isString(config.path)) {
                 throw new Error(`incorrect route configuration ${config}`);
             }
             if (appModule.$isTheMainModule === true) {

@@ -1,8 +1,6 @@
-import angular from 'angular';
 import { toBinding } from './utils/binding';
 import { dashToCamel } from './utils/strings';
 
-// TODO : factoring with Directive
 let transformConfig = (config, ctrl) => {
     let finalConfig = {
         selector: config.selector,
