@@ -50,15 +50,18 @@ gHtml2Js({
 
 The module will be automatically added to you module dependencies (see ``@Module``).
 
-**/!\** don't forget to import it in your component definition file, just like that :
-```javascript
-import template from 'app/app.component.tpl';
-
-@Component({
-    ...
-    templateUrl: template.name
-})
-```
+> :warning: **WARNING**
+>
+> don't forget to import it in your component definition file, just like that :
+>
+> ```javascript
+> import template from 'app/app.component.tpl';
+> 
+> @Component({
+>     ...
+>     templateUrl: template.name
+> })
+> ```
 
 If you prefer to use another solution, set the ``templatesDependencies`` parameter to false for every module.
 
@@ -135,11 +138,19 @@ It simply put the provided configuration object in $directiveConfig, but also of
 
 #### Injectable
 
-Permit to define a service. The service id is the result of the conversion of the class UpperCamelCase name to lowerCamelCase.
+Permit to define a service. The service id is either the id parameter, or, if this one is falsy, the result of the conversion of the class UpperCamelCase name to lowerCamelCase.
+
+
+> :warning: **WARNING**
+> 
+> If you intend to shorten the classes names during minification, you need to use the id parameter on *every* injectable.
+
 This service need to be registered in a "Module Component" via the Component's providers array parameter, like with angular 2.
 Then, all the injection process simply rely on angularjs. Use ``/* @ngInject */`` or the ``$inject`` class' property.
 
-This decorator has no parameters.
+##### Parameters
+
+* id (string) : the angularjs singleton id, for injection. By convention, this id should be written in lower camel case. This parameter isn't available for the Angular 2 `Injectable` decorator, but is only here for compatibility purpouse in case of class name shortening during minification.
 
 ### angular 1 specificities
 
@@ -169,7 +180,9 @@ The module decorator define all the required components, directives and services
 * directives : array of required directives and components for this module
 * providers : array of required services (cf. ``@Injectable``) for this module
 
-**/!\** *The directives and providers Component parameters are not evaluated recursively. For now, using them in a ``@Component`` decorator without a direct ``@Module`` decorator will do nothing ! Due to Angular 2 guidelines, this feature isn't planned.*
+> :warning: **WARNING**
+>
+> The directives and providers Component parameters are not evaluated recursively. For now, using them in a ``@Component`` decorator without a direct ``@Module`` decorator will do nothing ! Due to Angular 2 guidelines, this feature isn't planned.
 
 ##### Main module
 
@@ -177,7 +190,11 @@ Parameter : ``main`` (boolean - default false)
 
 If set to true, this parameter define the module as the "main module", which result in some auto-configuration, and permit to use the following parameters :
     * html5mode (object) : html5mode configuration object
-    * debug (boolean - default to false) : activate debug mode if true - **/!\** need to be set to false in production
+    * debug (boolean - default to false) : activate debug mode if true
+    
+> :warning: **WARNING**
+>
+> the debug parameter needs to be set to false in production
 
 ##### Example
 
