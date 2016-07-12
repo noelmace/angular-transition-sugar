@@ -89,11 +89,12 @@ Define an angularjs 1.5 component.
 
 ##### Parameters
 
-- selector : the 'name' / selector of the component
-- inputs : '<' bindings parameters, angular 2 style
-    ``inputs: [ 'toto: tutu' ]`` will be translated to ``bindings: { toto: '<tutu' }``
-- outputs : same as inputs, but with callbacks ('&')
-- directives / providers : cf. [@Module](#module)
+| key            | type        | default value              | description                              | example                     |
+| -------------- | ----------- | -------------------------- | ---------------------------------------- | --------------------------- |
+| selector       | string      |                            | the 'name' / selector of the component   |
+| inputs         | string[]      |                            | '<' bindings parameters, angular 2 style | ``inputs: [ 'toto: tutu' ]`` will be translated to ``bindings: { toto: '<tutu' }`` |
+| outputs        | string[]    |                            | same as inputs, but with callbacks ('&') |                          |
+| directives / providers | class[] |                          | cf. [@Module](#module)                   |
 
 Then, all the other 'angularjs classic' component parameters (template, templateUrl, transclude, etc ...) will be merged with the generated configuration.
 
@@ -150,7 +151,9 @@ Then, all the injection process simply rely on angularjs. Use ``/* @ngInject */`
 
 ##### Parameters
 
-* id (string) : the angularjs singleton id, for injection. By convention, this id should be written in lower camel case. This parameter isn't available for the Angular 2 `Injectable` decorator, but is only here for compatibility purpouse in case of class name shortening during minification.
+| key            | type        | default value              | description                              | example                     |
+| -------------- | ----------- | -------------------------- | ---------------------------------------- | --------------------------- |
+| id             | string      | class UpperCamelCase name in lowerCamelCase | the angularjs singleton id, for injection. By convention, this id should be written in lower camel case. This parameter isn't available for the Angular 2 `Injectable` decorator, but is only here for compatibility purpouse in case of class name shortening during minification. |      |
 
 ### angular 1 specificities
 
@@ -169,16 +172,21 @@ It will automatically define a new angularjs module (named after the ``name`` pa
 
 ##### Basic parameters
 
-* name (string): module's name / id
-* dependencies (array of modules definition objets or string id - default []) : module's dependencies
-* templatesDependencies (boolean - default true) : automatically add templates modules as module dependencies (cf. [template handling](#template-handling))
-* configs (array of functions - default []) : callback to call with module.config
+| key            | type        | default value              | description                              | example                     |
+| -------------- | ----------- | -------------------------- | ---------------------------------------- | --------------------------- |
+| name           | string      |                            | module's name / id                       |                             |
+| dependencies   | array of modules definition objets or string id -| []  | module's dependencies      |                             |
+| templatesDependencies | boolean | true                    | automatically add templates modules as module dependencies (cf. [template handling](#template-handling)) |        |
+| configs        | function[]  | []                         | callbacks to call with module.config     |                             | 
 
 ##### Component decorator extended parameters
 
 The module decorator define all the required components, directives and services thanks to the following [@Component](#component) parameters :
-* directives : array of required directives and components for this module
-* providers : array of required services (cf. [@Injectable](#injectable)) for this module
+
+| key            | type        | default value              | description                              | example                     |
+| -------------- | ----------- | -------------------------- | ---------------------------------------- | --------------------------- |
+| directives     | class[]     | []                         | array of required directives and components for this module |          |
+| providers      | class[]     | []                         | array of required services (cf. [@Injectable](#injectable)) for this module |     |
 
 > :warning: **WARNING**
 >
@@ -186,11 +194,11 @@ The module decorator define all the required components, directives and services
 
 ##### Main module
 
-Parameter : ``main`` (boolean - default false)
-
-If set to true, this parameter define the module as the "main module", which result in some auto-configuration, and permit to use the following parameters :
-    * html5mode (object) : html5mode configuration object
-    * debug (boolean - default to false) : activate debug mode if true
+| key            | type        | default value              | description                              | example                     |
+| -------------- | ----------- | -------------------------- | ---------------------------------------- | --------------------------- |
+| ``main``       | boolean     | false                      | If set to true, this parameter define the module as the "main module", which result in some auto-configuration, and permit to use the following parameters. |         |
+| html5mode      | object      |                            | html5mode configuration object           |                             |
+| debug          | boolean     | false                      | activate debug mode if true              |                             |
     
 > :warning: **WARNING**
 >
@@ -262,13 +270,14 @@ Define component oriented, "``@angular/router`` style" routes via angular-ui-rou
 
 ##### Parameters
 
-- name : state name (optionnal - the component name is used by default)
-- component :
-    - Component object, used to define the state template
-    - or es6 import string reference to the component definition, for lazy loading
-- lazy : boolean - force lazy loading if true (default to false). If true, require a string component parameter.
-- useAsDefault : use this state as default - incompatible with lazy loading
-- all other ui-router and ui-router-extras parameters (template, templateUrl, controller, parent ...) are available, and override the previous parameters
+| key            | type        | default value              | description                              | example                     |
+| -------------- | ----------- | -------------------------- | ---------------------------------------- | --------------------------- |
+| name           | string      | component name             | state name                               |                             |
+| component      | string / object      |                   | Component object, used to define the state template or es6 import string reference to the component definition, for lazy loading                              |                             |
+| lazy           | boolean     | false                      | force lazy loading if true. If true, require a string component parameter.                               |                             |
+| useAsDefault           | boolean      | false             | use this state as default - incompatible with lazy loading                           |                             |
+
+All the others ui-router and ui-router-extras parameters (template, templateUrl, controller, parent ...) are availables, and override the previous parameters.
 
 ##### Example
 
