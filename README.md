@@ -13,9 +13,9 @@ In addition, we could add that this project is seen as a simple [syntax sugar](h
 to Angular 1.5+, in the way that it doesn't make radical transformations or additions, but provide only a "simpler way"
 to write Angular 1.5+ projects with ES6 and SystemJS, with a closer style to Angular 2.
 
-*As this project is at an early stage, we can't guaranty, as long as the 1.0.0 version hasn't been released, that it's
-usage will stay as it is. For now, we doesn't recommand to use it in production, unless you are ready to follow the constant upgrades
-and to contribute to the project. Please follow the issues to do so.*
+> :warning: **WARNING**
+> 
+> *As this project is at an early stage, we can't guaranty, as long as the 1.0.0 version hasn't been released, that it's usage will stay as it is. For now, we don't recommand to use it in production, unless you are ready to follow the constant upgrades and to contribute to the project. Please follow the [issues](https://github.com/noelmace/angular-transition-sugar/issues) to do so.*
 
 install
 ---------
@@ -34,7 +34,7 @@ We recommend the use of jspm for dependencies management.
 
 #### template handling
 
-The best template solution with noelmace/angular-transition-sugar is the following :
+We recommand the following template handling solution with angular-transition-sugar :
 use an angular template caching solution, like gulp-ng-html2js, which will transform each html template to a new angularjs module, whose name will be the template 'url'.
 
 Here is a configuration example :
@@ -48,7 +48,7 @@ gHtml2Js({
 }
 ```
 
-The module will be automatically added to you module dependencies (see ``@Module``).
+The module will be automatically added to you module dependencies (see [@Module](#module)).
 
 > :warning: **WARNING**
 >
@@ -93,7 +93,7 @@ Define an angularjs 1.5 component.
 - inputs : '<' bindings parameters, angular 2 style
     ``inputs: [ 'toto: tutu' ]`` will be translated to ``bindings: { toto: '<tutu' }``
 - outputs : same as inputs, but with callbacks ('&')
-- directives / providers : cf. Module
+- directives / providers : cf. [@Module](#module)
 
 Then, all the other 'angularjs classic' component parameters (template, templateUrl, transclude, etc ...) will be merged with the generated configuration.
 
@@ -130,7 +130,7 @@ export class MyComponent {
 
 #### @Directive
 
-This decorator behave like ``@Component``, but for "attribute directives".
+This decorator behave like [@Component](#component), but for "attribute directives".
 
 It simply put the provided configuration object in $directiveConfig, but also offer different default values than the default angularjs behaviour, following angular best practices for upgrade to Angular 2 :
 - default ``restrict`` value is 'A'
@@ -171,14 +171,14 @@ It will automatically define a new angularjs module (named after the ``name`` pa
 
 * name (string): module's name / id
 * dependencies (array of modules definition objets or string id - default []) : module's dependencies
-* templatesDependencies (boolean - default true) : automatically add templates modules as module dependencies (cf. template handling)
+* templatesDependencies (boolean - default true) : automatically add templates modules as module dependencies (cf. [template handling](#template-handling))
 * configs (array of functions - default []) : callback to call with module.config
 
 ##### Component decorator extended parameters
 
-The module decorator define all the required components, directives and services thanks to the following ``@Component`` parameters :
+The module decorator define all the required components, directives and services thanks to the following [@Component](#component) parameters :
 * directives : array of required directives and components for this module
-* providers : array of required services (cf. ``@Injectable``) for this module
+* providers : array of required services (cf. [@Injectable](#injectable)) for this module
 
 > :warning: **WARNING**
 >
