@@ -5,8 +5,12 @@
     ],
     "plugins": [
         "transform-decorators-legacy",
-        "transform-class-properties"
+        "transform-class-properties",
+        ["transform-es2015-modules-commonjs", {
+            "loose": true
+        }]
     ],
+
     "moduleIds": false,
     "comments": true,
     "compact": false
