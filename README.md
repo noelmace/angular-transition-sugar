@@ -13,9 +13,9 @@ In addition, we could add that this project is seen as a simple [syntax sugar](h
 to Angular 1.5+, in the way that it doesn't make radical transformations or additions, but provide only a "simpler way"
 to write Angular 1.5+ projects with ES6 and SystemJS, with a closer style to Angular 2.
 
-*As this project is at an early stage, we can't guaranty, as long as the 1.0.0 version hasn't been released, that it's
-usage will stay as it is. For now, we doesn't recommand to use it in production, unless you are ready to follow the constant upgrades
-and to contribute to the project. Please follow the issues to do so.*
+> :warning: **WARNING**
+> 
+> *As this project is at an early stage, we can't guaranty, as long as the 1.0.0 version hasn't been released, that it's usage will stay as it is. For now, we don't recommand to use it in production, unless you are ready to follow the constant upgrades and to contribute to the project. Please follow the [issues](https://github.com/noelmace/angular-transition-sugar/issues) to do so.*
 
 install
 ---------
@@ -34,7 +34,7 @@ We recommend the use of jspm for dependencies management.
 
 #### template handling
 
-The best template solution with noelmace/angular-transition-sugar is the following :
+We recommand the following template handling solution with angular-transition-sugar :
 use an angular template caching solution, like gulp-ng-html2js, which will transform each html template to a new angularjs module, whose name will be the template 'url'.
 
 Here is a configuration example :
@@ -48,17 +48,20 @@ gHtml2Js({
 }
 ```
 
-The module will be automatically added to you module dependencies (see ``@Module``).
+The module will be automatically added to you module dependencies (see [@Module](#module)).
 
-**/!\** don't forget to import it in your component definition file, just like that :
-```javascript
-import template from 'app/app.component.tpl';
-
-@Component({
-    ...
-    templateUrl: template.name
-})
-```
+> :warning: **WARNING**
+>
+> don't forget to import it in your component definition file, just like that :
+>
+> ```javascript
+> import template from 'app/app.component.tpl';
+> 
+> @Component({
+>     ...
+>     templateUrl: template.name
+> })
+> ```
 
 If you prefer to use another solution, set the ``templatesDependencies`` parameter to false for every module.
 
@@ -86,11 +89,12 @@ Define an angularjs 1.5 component.
 
 ##### Parameters
 
-- selector : the 'name' / selector of the component
-- inputs : '<' bindings parameters, angular 2 style
-    ``inputs: [ 'toto: tutu' ]`` will be translated to ``bindings: { toto: '<tutu' }``
-- outputs : same as inputs, but with callbacks ('&')
-- directives / providers : cf. Module
+| key            | type        | default value              | description                              | example                     |
+| -------------- | ----------- | -------------------------- | ---------------------------------------- | --------------------------- |
+| selector       | string      |                            | the 'name' / selector of the component   |
+| inputs         | string[]      |                            | '<' bindings parameters, angular 2 style | ``inputs: [ 'toto: tutu' ]`` will be translated to ``bindings: { toto: '<tutu' }`` |
+| outputs        | string[]    |                            | same as inputs, but with callbacks ('&') |                          |
+| directives / providers | class[] |                          | cf. [@Module](#module)                   |
 
 Then, all the other 'angularjs classic' component parameters (template, templateUrl, transclude, etc ...) will be merged with the generated configuration.
 
@@ -127,7 +131,7 @@ export class MyComponent {
 
 #### @Directive
 
-This decorator behave like ``@Component``, but for "attribute directives".
+This decorator behave like [@Component](#component), but for "attribute directives".
 
 It simply put the provided configuration object in $directiveConfig, but also offer different default values than the default angularjs behaviour, following angular best practices for upgrade to Angular 2 :
 - default ``restrict`` value is 'A'
@@ -135,11 +139,21 @@ It simply put the provided configuration object in $directiveConfig, but also of
 
 #### Injectable
 
-Permit to define a service. The service id is the result of the conversion of the class UpperCamelCase name to lowerCamelCase.
+Permit to define a service. The service id is either the id parameter, or, if this one is falsy, the result of the conversion of the class UpperCamelCase name to lowerCamelCase.
+
+
+> :warning: **WARNING**
+> 
+> If you intend to shorten the classes names during minification, you need to use the id parameter on *every* injectable.
+
 This service need to be registered in a "Module Component" via the Component's providers array parameter, like with angular 2.
 Then, all the injection process simply rely on angularjs. Use ``/* @ngInject */`` or the ``$inject`` class' property.
 
-This decorator has no parameters.
+##### Parameters
+
+| key            | type        | default value              | description                              | example                     |
+| -------------- | ----------- | -------------------------- | ---------------------------------------- | --------------------------- |
+| id             | string      | class UpperCamelCase name in lowerCamelCase | the angularjs singleton id, for injection. By convention, this id should be written in lower camel case. This parameter isn't available for the Angular 2 `Injectable` decorator, but is only here for compatibility purpouse in case of class name shortening during minification. |      |
 
 ### angular 1 specificities
 
@@ -158,26 +172,37 @@ It will automatically define a new angularjs module (named after the ``name`` pa
 
 ##### Basic parameters
 
-* name (string): module's name / id
-* dependencies (array of modules definition objets or string id - default []) : module's dependencies
-* templatesDependencies (boolean - default true) : automatically add templates modules as module dependencies (cf. template handling)
-* configs (array of functions - default []) : callback to call with module.config
+| key            | type        | default value              | description                              | example                     |
+| -------------- | ----------- | -------------------------- | ---------------------------------------- | --------------------------- |
+| name           | string      |                            | module's name / id                       |                             |
+| dependencies   | array of modules definition objets or string id -| []  | module's dependencies      |                             |
+| templatesDependencies | boolean | true                    | automatically add templates modules as module dependencies (cf. [template handling](#template-handling)) |        |
+| configs        | function[]  | []                         | callbacks to call with module.config     |                             | 
 
 ##### Component decorator extended parameters
 
-The module decorator define all the required components, directives and services thanks to the following ``@Component`` parameters :
-* directives : array of required directives and components for this module
-* providers : array of required services (cf. ``@Injectable``) for this module
+The module decorator define all the required components, directives and services thanks to the following [@Component](#component) parameters :
 
-**/!\** *The directives and providers Component parameters are not evaluated recursively. For now, using them in a ``@Component`` decorator without a direct ``@Module`` decorator will do nothing ! Due to Angular 2 guidelines, this feature isn't planned.*
+| key            | type        | default value              | description                              | example                     |
+| -------------- | ----------- | -------------------------- | ---------------------------------------- | --------------------------- |
+| directives     | class[]     | []                         | array of required directives and components for this module |          |
+| providers      | class[]     | []                         | array of required services (cf. [@Injectable](#injectable)) for this module |     |
+
+> :warning: **WARNING**
+>
+> The directives and providers Component parameters are not evaluated recursively. For now, using them in a ``@Component`` decorator without a direct ``@Module`` decorator will do nothing ! Due to Angular 2 guidelines, this feature isn't planned.
 
 ##### Main module
 
-Parameter : ``main`` (boolean - default false)
-
-If set to true, this parameter define the module as the "main module", which result in some auto-configuration, and permit to use the following parameters :
-    * html5mode (object) : html5mode configuration object
-    * debug (boolean - default to false) : activate debug mode if true - **/!\** need to be set to false in production
+| key            | type        | default value              | description                              | example                     |
+| -------------- | ----------- | -------------------------- | ---------------------------------------- | --------------------------- |
+| ``main``       | boolean     | false                      | If set to true, this parameter define the module as the "main module", which result in some auto-configuration, and permit to use the following parameters. |         |
+| html5mode      | object      |                            | html5mode configuration object           |                             |
+| debug          | boolean     | false                      | activate debug mode if true              |                             |
+    
+> :warning: **WARNING**
+>
+> the debug parameter needs to be set to false in production
 
 ##### Example
 
@@ -245,13 +270,14 @@ Define component oriented, "``@angular/router`` style" routes via angular-ui-rou
 
 ##### Parameters
 
-- name : state name (optionnal - the component name is used by default)
-- component :
-    - Component object, used to define the state template
-    - or es6 import string reference to the component definition, for lazy loading
-- lazy : boolean - force lazy loading if true (default to false). If true, require a string component parameter.
-- useAsDefault : use this state as default - incompatible with lazy loading
-- all other ui-router and ui-router-extras parameters (template, templateUrl, controller, parent ...) are available, and override the previous parameters
+| key            | type        | default value              | description                              | example                     |
+| -------------- | ----------- | -------------------------- | ---------------------------------------- | --------------------------- |
+| name           | string      | component name             | state name                               |                             |
+| component      | string / object      |                   | Component object, used to define the state template or es6 import string reference to the component definition, for lazy loading                              |                             |
+| lazy           | boolean     | false                      | force lazy loading if true. If true, require a string component parameter.                               |                             |
+| useAsDefault           | boolean      | false             | use this state as default - incompatible with lazy loading                           |                             |
+
+All the others ui-router and ui-router-extras parameters (template, templateUrl, controller, parent ...) are availables, and override the previous parameters.
 
 ##### Example
 
