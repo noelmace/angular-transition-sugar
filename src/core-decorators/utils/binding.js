@@ -4,7 +4,7 @@ export let toBinding = (params, type) => {
         params.forEach((param) => {
             let id = param, value = '';
             if (param.includes(': ')) {
-                param.split(': ');
+                param = param.split(': ');
                 [id, value] = param;
             }
             bindings[id] = type + value;
