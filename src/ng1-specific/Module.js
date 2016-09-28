@@ -22,7 +22,9 @@ export function Module({ name, dependencies = [], configs = [], main = false, de
                         appModule.component(directive.$kissDecoratorsConfig.name, directive.$kissDecoratorsConfig.componentConfig);
                     } else if (angular.isDefined(directive.$kissDecoratorsConfig.directiveConfig)) {
                         addTemplateModule(appModule, directive.$kissDecoratorsConfig.directiveConfig.templateUrl, templatesDependencies);
-                        appModule.directive(directive.$kissDecoratorsConfig.name, directive.$kissDecoratorsConfig.directiveConfig);
+                        appModule.directive(directive.$kissDecoratorsConfig.name, () => {
+                            return directive.$kissDecoratorsConfig.directiveConfig
+                        });
                     }
                 });
             }
