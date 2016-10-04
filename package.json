@@ -1,6 +1,6 @@
 {
   "name": "angular-transition-sugar",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "Simple AngularJS extensions to facilitate transition to Angular",
   "main": "dist/Component.js",
   "scripts": {
