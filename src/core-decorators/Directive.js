@@ -11,11 +11,10 @@ let transformConfig = (config, ctrl) => {
     };
 
     if (config.inputs || config.outputs || config.bindToController) {
-        finalConfig.directiveConfig.bindToController = {};
+        finalConfig.directiveConfig.bindToController = config.bindToController || {};
 
         angular.extend(finalConfig.directiveConfig.bindings, toBinding(config.inputs, '<'));
         angular.extend(finalConfig.directiveConfig.bindings, toBinding(config.outputs, '&'));
-        angular.extend(finalConfig.directiveConfig.bindings, config.bindings);
     }
 
     finalConfig.directiveConfig.restrict = config.restrict || 'A';
@@ -35,6 +34,8 @@ let transformConfig = (config, ctrl) => {
     delete config.selector;
     delete config.inputs;
     delete config.outputs;
+    delete config.bindToController;
+
 
     angular.extend(finalConfig.directiveConfig, config);
 

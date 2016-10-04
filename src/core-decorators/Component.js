@@ -6,18 +6,19 @@ let transformConfig = (config, ctrl) => {
         selector: config.selector,
         name: dashToCamel(config.selector),
         componentConfig: {
-            bindings: {},
+            bindings: config.bindings || {},
             controller: ctrl
         }
     };
 
     angular.extend(finalConfig.componentConfig.bindings, toBinding(config.inputs, '<'));
     angular.extend(finalConfig.componentConfig.bindings, toBinding(config.outputs, '&'));
-    angular.extend(finalConfig.componentConfig.bindings, config.bindings);
 
     delete config.selector;
     delete config.inputs;
     delete config.outputs;
+    delete config.bindings;
+
 
     if (config.directives || config.providers) {
         finalConfig.dependencies = {};
