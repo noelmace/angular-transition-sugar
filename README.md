@@ -4,18 +4,15 @@ angular-transition-sugar
 Simple AngularJS extensions to facilitate transition to Angular.
 
 The goal of this project is to provide a [KISS](https://en.wikipedia.org/wiki/KISS_principle) and ready for production
-alternative to ng-forward.
+alternative to [ng-forward](https://github.com/ngUpgraders/ng-forward/).
 
 Given so, this project's principle could be summarized by the one under ng-forward : "start writing code using
-Angular 2 conventions and styles that runs today on Angular" 1.5+.
+Angular 2 conventions and styles that runs today on Angular" 1.5+, but with a KISS approch. 
 
-In addition, we could add that this project is seen as a simple [syntax sugar](https://en.wikipedia.org/wiki/Syntactic_sugar)
-to Angular 1.5+, in the way that it doesn't make radical transformations or additions, but provide only a "simpler way"
-to write Angular 1.5+ projects with ES6 and SystemJS, with a closer style to Angular 2.
+KISS mean for us that this project is seen as a simple [syntax sugar](https://en.wikipedia.org/wiki/Syntactic_sugar)
+to Angular 1.5+, in the way that it doesn't make radical transformations or additions, and doesn't hidde the angularjs 1 behind a big overlay like ng-metadata does, but provide only a "simpler way" to write Angular 1.5+ projects with ES6 and SystemJS, with a closer style to Angular 2.
 
-> :warning: **WARNING**
-> 
-> *As this project is at an early stage, we can't guaranty, as long as the 1.0.0 version hasn't been released, that it's usage will stay as it is. For now, we don't recommand to use it in production, unless you are ready to follow the constant upgrades and to contribute to the project. Please follow the [issues](https://github.com/noelmace/angular-transition-sugar/issues) to do so.*
+**if you need a complete Angular 2 decorators solution for your Angular 1 apps, consider using [ng-metadata](https://github.com/ngParty/ng-metadata).**
 
 install
 ---------
