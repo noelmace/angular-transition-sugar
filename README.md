@@ -12,7 +12,9 @@ Angular 2 conventions and styles that runs today on Angular" 1.5+, but with a KI
 KISS mean for us that this project is seen as a simple [syntax sugar](https://en.wikipedia.org/wiki/Syntactic_sugar)
 to Angular 1.5+, in the way that it doesn't make radical transformations or additions, and doesn't hidde the angularjs 1 behind a big overlay like ng-metadata does, but provide only a "simpler way" to write Angular 1.5+ projects with ES6 and SystemJS, with a closer style to Angular 2.
 
-**if you need a complete Angular 2 decorators solution for your Angular 1 apps, consider using [ng-metadata](https://github.com/ngParty/ng-metadata).**
+# This Project is no longer under active development.
+
+**I now use and maintain this project only as part of existing (legacy) Angular 1 projects, which doesn't need important refactorings nor a transition to Angular 2. It was created before the Angular 2.0.0-RC6 release, and doesn't follow its new @NgModule decorator ! If you need a complete and up to date Angular 2 decorators solution for your Angular 1 apps, consider using [ng-metadata](https://github.com/ngParty/ng-metadata).**
 
 install
 ---------
