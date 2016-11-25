@@ -20,7 +20,7 @@ let transformConfig = (config, ctrl) => {
     delete config.bindings;
 
 
-    if (config.directives || config.providers) {
+    if (config.directives || config.providers || config.factories ) {
         finalConfig.dependencies = {};
     }
     if (config.directives) {
@@ -29,6 +29,10 @@ let transformConfig = (config, ctrl) => {
 
     if (config.providers) {
         finalConfig.dependencies.providers = config.providers;
+    }
+
+    if (config.factories) {
+        finalConfig.dependencies.factories = config.factories;
     }
 
     angular.extend(finalConfig.componentConfig, config);

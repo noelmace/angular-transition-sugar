@@ -34,6 +34,12 @@ export function Module({ name, dependencies = [], configs = [], main = false, de
                     appModule.service(service.$kissDecoratorsConfig.injectableId, service);
                 });
             }
+
+            if (component.$kissDecoratorsConfig.dependencies.factories) {
+                component.$kissDecoratorsConfig.dependencies.factories.forEach((factory) => {
+                    appModule.factory(factory.$factoryId, factory);
+                });
+            }
         }
 
         if (angular.isArray(configs)) {
